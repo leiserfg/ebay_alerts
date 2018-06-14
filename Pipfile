@@ -7,10 +7,15 @@ name = "pypi"
 
 [packages]
 
+django = "*"
+ebaysdk = "*"
+drf-yasg = "*"
+huey = "*"
 
 
 [dev-packages]
 
+ipython = "*"
 
 
 [requires]
