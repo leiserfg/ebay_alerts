@@ -35,6 +35,11 @@ class Alert(ModelWithUUID):
     frequency = models.IntegerField(choices=FREQUENCY_CHOICES, default=NORMAL)
     enabled = models.BooleanField(default=False)
 
+    @staticmethod
+    def create_with_email(email: str, **kwargs):
+        owner, _ = Customer.objects.get_or_create(email=email)
+        return Alert.objects.create(owner=owner, **kwargs)
+
 
 class Response(models.Model):
     alert = models.ForeignKey(
