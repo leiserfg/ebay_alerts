@@ -3,8 +3,28 @@ version: '3'
 services:
   web:
     build: .
+    image: ebay_task_web
     command: python3 manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code
     ports:
       - "8000:8000"
+    environment:
+      - REDIS_URL='redis://redis:6379'
+    depends_on:
+      - redis
+    links:
+      - redis
+  huey:
+    image: ebay_task_web
+    command: python3 manage.py run_huey
+    volumes:
+      - .:/code
+    environment:
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
+    links:
+      - redis
+  redis:
+    image: redis:alpine

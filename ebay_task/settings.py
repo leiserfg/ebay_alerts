@@ -123,3 +123,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+HUEY = {
+    'name': 'my-app',
+    'url': os.environ.get('REDIS_URL', 'localhost'),
+    'always_eager': False
+}

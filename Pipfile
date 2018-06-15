@@ -12,6 +12,7 @@ ebaysdk = "*"
 drf-yasg = "*"
 huey = "*"
 "urllib3" = "*"
+redis = "*"
 
 
 [dev-packages]
