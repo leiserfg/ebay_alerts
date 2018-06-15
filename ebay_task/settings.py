@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'alerts',
     'rest_framework',
-    'drf_yasg'
+    'drf_yasg',
+    'huey.contrib.djhuey',
+    'emailer'
 ]
 
 MIDDLEWARE = [
