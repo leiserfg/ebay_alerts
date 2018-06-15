@@ -21,13 +21,16 @@ class ModelWithUUID(models.Model):
         abstract = True
 
 
-class Costumer(ModelWithUUID):
+class Customer(ModelWithUUID):
     email = models.EmailField()
+
+    def __str__(self):
+        return self.email
 
 
 class Alert(ModelWithUUID):
     owner = models.ForeignKey(
-        Costumer, on_delete=models.CASCADE, related_name='alerts')
+        Customer, on_delete=models.CASCADE, related_name='alerts')
     search_terms = models.CharField(max_length=50, blank=False, null=False)
     frequency = models.IntegerField(choices=FREQUENCY_CHOICES, default=NORMAL)
     enabled = models.BooleanField(default=False)
