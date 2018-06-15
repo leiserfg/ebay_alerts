@@ -3,7 +3,7 @@ from rest_framework import serializers
 from .models import Alert
 
 
-class AlertSerializer(serializer.ModelSerializer):
+class AlertSerializer(serializers.ModelSerializer):
     owner = serializers.StringRelatedField(read_only=True)
 
     class Meta:
