@@ -3,6 +3,8 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
+from .api import router
+
 schema_view = get_schema_view(
     openapi.Info(
         title="eBay Alerts Api",
@@ -28,4 +30,5 @@ urlpatterns = [
         schema_view.with_ui('redoc', cache_timeout=None),
         name='schema-redoc'
     ),
+    path('', include(router.urls))
 ]
