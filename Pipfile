@@ -11,6 +11,7 @@ django = "*"
 ebaysdk = "*"
 drf-yasg = "*"
 huey = "*"
+"urllib3" = "*"
 
 
 [dev-packages]
