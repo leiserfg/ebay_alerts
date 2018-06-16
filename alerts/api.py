@@ -2,6 +2,8 @@ from django.db import transaction
 from django.utils.decorators import method_decorator
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
+from rest_framework import status
+from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.routers import SimpleRouter
 from rest_framework.viewsets import ModelViewSet
@@ -21,6 +23,9 @@ owner_param = openapi.Parameter('owner', in_=openapi.IN_QUERY, description='Owne
 class AlertView(ModelViewSet):
     def get_queryset(self):
         queryset = Alert.objects.all()
+        if self.action != 'list':
+            return queryset
+
         owner = self.request.query_params.get('owner', None)
         if owner is not None:
             return queryset.filter(owner__email=owner)
@@ -30,3 +35,18 @@ class AlertView(ModelViewSet):
         if self.request.method == 'POST':
             return CreateAlertSerializer
         return AlertSerializer
+
+    @swagger_auto_schema(responses={204: 'Unsuscribed', 404: 'Does not exist'})
+    @action(methods=['get'], detail=True)
+    def unsuscribe(self, request, pk=None):
+        alert = self.get_object()
+        alert.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    @action(methods=['get'], detail=True)
+    def suscribe(self, request, pk=None):
+        alert: Alert = self.get_object()
+        alert.enabled = True
+        alert.save()
+        serializer = AlertSerializer(alert)
+        return Response(serializer.data)
