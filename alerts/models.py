@@ -39,16 +39,3 @@ class Alert(ModelWithUUID):
     def create_with_email(email: str, **kwargs):
         owner, _ = Customer.objects.get_or_create(email=email)
         return Alert.objects.create(owner=owner, **kwargs)
-
-
-class Response(models.Model):
-    alert = models.ForeignKey(
-        Alert, on_delete=models.CASCADE, related_name='responses')
-    sended = models.BooleanField(default=False)
-
-
-class Item(models.Model):
-    response = models.ForeignKey(
-        Response, on_delete=models.CASCADE, related_name='items')
-    name = models.CharField(max_length=50)
-    url = models.URLField()
