@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
     'huey.contrib.djhuey',
-    'emailer'
 ]
 
 MIDDLEWARE = [
