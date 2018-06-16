@@ -1,0 +1,9 @@
+{% block title %}{% endblock %}
+{% block body %}{% endblock %}
+{% if actions %}
+---------------------------------------------------
+{% for action in actions %}
+[{{action.text}}]({{action.link}})
+{ % endfor %}
+
+{% endif %}
