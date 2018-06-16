@@ -131,3 +131,5 @@ HUEY = {
     'url': env('REDIS_URL', default='localhost:6379'),
     'always_eager': False
 }
+EMAIL_CONFIG = env.email_url()
+locals().update(EMAIL_CONFIG)
