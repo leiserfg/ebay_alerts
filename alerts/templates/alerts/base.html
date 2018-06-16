@@ -44,7 +44,8 @@
 							{% block body %}
 							   Body
 							{% endblock %}
-							
+
+							{% if actions %}
 							<div style="font-family: Roboto-Regular,Helvetica,Arial,sans-serif; font-size: 13px; color: ; line-height: 1.6;padding-left: 20px; padding-right: 20px;padding-bottom: 32px; padding-top: 24px;">
 							    <div >
 								<div style="padding-top: 24px; text-align: center;">
@@ -71,6 +72,7 @@
 							    </div>
 							    </div>
 							</div>
+							{% endif %}
 						    </td>
 						    <td style="background: center left repeat-y;" width="6">
 							<div>
