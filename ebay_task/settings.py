@@ -9,8 +9,14 @@ https://docs.djangoproject.com/en/2.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
-
 import os
+
+import environ
+
+env = environ.Env(
+    DEBUG=(bool, True)
+)
+env.read_env()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,7 +29,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '#3bw@24ov+vfvgsw7mg8v*a=ux)85dzbqtr3rsdw_@faow&ijt'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = []
 
@@ -77,12 +83,8 @@ WSGI_APPLICATION = 'ebay_task.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    'default': env.db()
 }
 
 
@@ -126,6 +128,6 @@ STATIC_URL = '/static/'
 
 HUEY = {
     'name': 'my-app',
-    'url': os.environ.get('REDIS_URL', 'localhost'),
+    'url': env('REDIS_URL', default='localhost:6379'),
     'always_eager': False
 }

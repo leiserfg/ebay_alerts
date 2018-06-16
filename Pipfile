@@ -13,6 +13,7 @@ drf-yasg = "*"
 huey = "*"
 "urllib3" = "*"
 redis = "*"
+django-environ = "*"
 
 
 [dev-packages]

@@ -9,19 +9,15 @@ services:
       - .:/code
     ports:
       - "8000:8000"
-    environment:
-      - REDIS_URL='redis://redis:6379'
     depends_on:
       - redis
     links:
       - redis
   huey:
     image: ebay_task_web
-    command: python3 manage.py run_huey
+    command: python3 manage.py run_huey -w 2
     volumes:
       - .:/code
-    environment:
-      - REDIS_URL=redis://redis:6379
     depends_on:
       - redis
     links:
