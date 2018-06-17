@@ -1,7 +1,7 @@
 from django.template import loader
 
 from .models import Alert
-from .tasks import send_mail_async
+from .tasks.send_mail_async import send_mail_async
 
 
 def subscription(alert: Alert):
@@ -27,3 +27,7 @@ def subscription(alert: Alert):
         [email],
         html_message=message_html
     )
+
+
+def send_alert_response(alert: Alert, response):
+    pass
