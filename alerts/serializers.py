@@ -10,7 +10,7 @@ class AlertSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Alert
-        exclude = ('updated_minute', 'id')
+        exclude = ('updated_minute',)
 
 
 class CreateAlertSerializer(serializers.ModelSerializer):
