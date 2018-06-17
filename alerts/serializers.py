@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Alert
+from .models import Alert, Customer
 
 
 class AlertSerializer(serializers.ModelSerializer):
@@ -26,3 +26,9 @@ class CreateAlertSerializer(serializers.ModelSerializer):
         data = validated_data.copy()
         email = data.pop('email')
         return Alert.create_with_email(email, **data)
+
+
+class CustomerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Customer
+        fields = '__all__'

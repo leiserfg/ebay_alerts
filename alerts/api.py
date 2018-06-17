@@ -4,12 +4,14 @@ from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.decorators import action
+from rest_framework.mixins import RetrieveModelMixin
 from rest_framework.response import Response
 from rest_framework.routers import SimpleRouter
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import GenericViewSet, ModelViewSet
 
 from .models import Alert, Customer
-from .serializers import AlertSerializer, CreateAlertSerializer
+from .serializers import (AlertSerializer, CreateAlertSerializer,
+                          CustomerSerializer)
 from .utils import register_viewset
 
 router = SimpleRouter()
@@ -50,3 +52,9 @@ class AlertView(ModelViewSet):
         alert.save()
         serializer = AlertSerializer(alert)
         return Response(serializer.data)
+
+
+@register_viewset(router, 'customers')
+class CustomerView(RetrieveModelMixin, GenericViewSet):
+    queryset = Customer.objects.all()
+    serializer_class = CustomerSerializer
