@@ -41,7 +41,7 @@ def subscription(alert: Alert):
     )
 
 
-def send_alert(alert: Alert, response):
+def send_alert(alert: Alert, items):
     email = alert.owner.email
     frequency = alert.get_frequency_display()
     search_terms = alert.search_terms
@@ -50,7 +50,7 @@ def send_alert(alert: Alert, response):
         email=email,
         frequency=frequency,
         search_terms=search_terms,
-        response=response,
+        items=items,
         actions=[{'text': 'Unsuscribe',
                   'link': _unsuscribe_action(alert)}]
     )
