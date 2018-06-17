@@ -131,3 +131,6 @@ HUEY = {
 }
 EMAIL_CONFIG = env.email_url()
 locals().update(EMAIL_CONFIG)
+
+EBAY_ID = env('EBAY_ID')
+EBAY_DOMAIN = env('EBAY_DOMAIN', default='svcs.sandbox.ebay.com')
