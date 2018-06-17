@@ -1,9 +1,20 @@
 {% extends 'alerts/base.txt'%}
-
+{% load alert_extras %}
 {% block title %}
 Alert for the search in eBay of «{{search_terms}}» 
 {% endblock %}
 
 {% block body%}
-{{response}}
+{% for item in items %}
+=====================================
+{{item.title}}
+{{item.viewItemURL}}
+
+Categories: {{item.primaryCategory.categoryName}},{{item.secondaryCategory.categoryName}}
+Condition: {{item.condition.conditionDisplayName}}
+Price: {{item.sellingStatus.convertedCurrentPrice.value}}  {% under item.sellingStatus.convertedCurrentPrice "_currencyId" %}
+Shipping Price: {{item.shippingInfo.shippingServiceCost.value}} {% under item.shippingInfo.shippingServiceCost "_currencyId" %}
+
+
+{% endfor %}
 {% endblock %}
