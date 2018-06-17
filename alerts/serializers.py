@@ -10,7 +10,7 @@ class AlertSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Alert
-        fields = '__all__'
+        exclude = ('updated_minute', 'id')
 
 
 class CreateAlertSerializer(serializers.ModelSerializer):
@@ -20,7 +20,7 @@ class CreateAlertSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Alert
-        fields = ('id', 'email', 'search_terms', 'frequency', 'frequency_name')
+        fields = ('email', 'search_terms', 'frequency', 'frequency_name')
 
     def create(self, validated_data):
         data = validated_data.copy()
