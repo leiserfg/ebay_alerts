@@ -7,12 +7,12 @@ from .utils import absolute_reverse
 mail_sender = 'sender@mail.com'    # TODO
 
 
-def _subscribe_action(customer: Customer):
-    return absolute_reverse('alert-suscribe', args=[customer.id])
+def _subscribe_action(alert: Alert):
+    return absolute_reverse('alert-suscribe', args=[alert.id])
 
 
-def _unsuscribe_action(customer: Customer):
-    return absolute_reverse('alert-unsuscribe', args=[customer.id])
+def _unsuscribe_action(alert: Alert):
+    return absolute_reverse('alert-unsuscribe', args=[alert.id])
 
 
 def subscription(alert: Alert):
@@ -25,7 +25,7 @@ def subscription(alert: Alert):
         frequency=frequency,
         search_terms=search_terms,
         actions=[{'text': 'Confirm Subscription',
-                  'link': _subscribe_action(alert.owner)}]
+                  'link': _subscribe_action(alert)}]
     )
     template_txt = loader.get_template('alerts/subscription.txt')
     template_html = loader.get_template('alerts/subscription.html')
@@ -52,7 +52,7 @@ def send_alert(alert: Alert, response):
         search_terms=search_terms,
         response=response,
         actions=[{'text': 'Unsuscribe',
-                  'link': _unsuscribe_action(alert.owner)}]
+                  'link': _unsuscribe_action(alert)}]
     )
     template_txt = loader.get_template('alerts/alert.txt')
     template_html = loader.get_template('alerts/alert.html')
