@@ -3,6 +3,8 @@ from django.template import loader
 from .models import Alert
 from .tasks.send_mail_async import send_mail_async
 
+mail_sender = 'sender@mail.com'    # TODO
+
 
 def subscription(alert: Alert):
     email = alert.owner.email
@@ -23,11 +25,33 @@ def subscription(alert: Alert):
     send_mail_async(
         'Alert Subscription',
         message,
-        'yo@mail.com',
+        mail_sender,
         [email],
         html_message=message_html
     )
 
 
-def send_alert_response(alert: Alert, response):
-    pass
+def send_alert(alert: Alert, response):
+    email = alert.owner.email
+    frequency = alert.get_frequency_display()
+    search_terms = alert.search_terms
+
+    ctx = dict(
+        email=email,
+        frequency=frequency,
+        search_terms=search_terms,
+        response=response,
+        actions=[]
+    )
+    template_txt = loader.get_template('alerts/alert.txt')
+    template_html = loader.get_template('alerts/alert.html')
+
+    message = template_txt.render(ctx)
+    message_html = template_html.render(ctx)
+    send_mail_async(
+        'Alert',
+        message,
+        mail_sender,
+        [email],
+        html_message=message_html
+    )

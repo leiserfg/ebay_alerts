@@ -1,0 +1,9 @@
+{% extends 'alerts/base.txt'%}
+
+{% block title %}
+Alert for the search in eBay of «{{search_terms}}» 
+{% endblock %}
+
+{% block body%}
+{{response}}
+{% endblock %}
