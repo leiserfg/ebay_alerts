@@ -1,3 +1,2 @@
-import TodoModel from './TodoModel';
-
-export { TodoModel };
+import AlertModel from './AlertModel'
+export {AlertModel}

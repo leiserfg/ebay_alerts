@@ -114,6 +114,9 @@ module.exports = {
     historyApiFallback: {
       disableDotRule: true
     },
+proxy: {
+      '/api': 'http://localhost:8000'
+},
     stats: 'minimal'
   },
   devtool: 'cheap-module-eval-source-map',
