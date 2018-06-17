@@ -30,7 +30,7 @@ class AlertView(ModelViewSet):
 
         owner = self.request.query_params.get('owner', None)
         if owner is not None:
-            return queryset.filter(owner__email=owner)
+            return queryset.filter(owner=owner)
         return queryset.none()
 
     def get_serializer_class(self):
