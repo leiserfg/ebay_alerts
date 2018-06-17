@@ -11,6 +11,7 @@ services:
       - "8000:8000"
     depends_on:
       - redis
+      - migration
     links:
       - redis
     environment:
@@ -19,6 +20,18 @@ services:
   huey:
     image: ebay_task_web
     command: python3 manage.py run_huey -w 2
+    environment:
+      - HTTP_PROXY
+      - HTTPS_PROXY
+    volumes:
+      - .:/code
+    depends_on:
+      - redis
+    links:
+      - redis
+  migration:
+    image: ebay_task_web
+    command: python3 manage.py migrate
     environment:
       - HTTP_PROXY
       - HTTPS_PROXY

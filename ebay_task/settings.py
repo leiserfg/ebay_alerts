@@ -31,7 +31,7 @@ SECRET_KEY = '#3bw@24ov+vfvgsw7mg8v*a=ux)85dzbqtr3rsdw_@faow&ijt'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
