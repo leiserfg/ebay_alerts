@@ -1,3 +1,5 @@
+from json import load
+from pathlib import Path
 from urllib.parse import urljoin, urlparse
 from urllib.request import getproxies
 
@@ -11,6 +13,8 @@ DEFAULT_DOMAIN = settings.DEFAULT_DOMAIN
 EBAY_ID = settings.EBAY_ID
 EBAY_DOMAIN = settings.EBAY_DOMAIN
 DEBUG = settings.DEBUG
+
+fake_response = Path(__file__).parent / 'fake_ebay.json'
 
 
 def register_viewset(router: BaseRouter, name: str, base_name: str = ''):
@@ -40,9 +44,12 @@ def _resolve_proxy():
 
 
 def search_on_ebay(search_term, count=20, order_by='PricePlusShippingLowest'):
-    proxy_host, proxy_port = _resolve_proxy()
+    if DEBUG:
+        return load(fake_response.open())
 
-    api = finding(debug=DEBUG, appid=EBAY_ID, domain=EBAY_DOMAIN,
+    proxy_host, proxy_port = _resolve_proxy()
+    print(proxy_host, proxy_port)
+    api = finding(appid=EBAY_ID, domain=EBAY_DOMAIN,
                   config_file=None, proxy_host=proxy_host, proxy_port=proxy_port)
     result = api.execute('findItemsAdvanced',
                          dict(keywords=search_term, sortOrder=order_by,
