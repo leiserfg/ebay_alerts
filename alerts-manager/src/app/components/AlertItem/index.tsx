@@ -27,6 +27,12 @@ export class AlertItem extends React.Component<AlertProps, AlertState> {
     this.setState({editing: true})
   }
 
+  private handleFreqChange = (e: React.SyntheticEvent<any>) => {
+    const target = e.target as any
+    let frequency = parseInt(target.value)
+    this.updateAlert({frequency})
+  }
+
   private handleToggleCheckbox = (e: React.SyntheticEvent<any>) => {
     const {alert} = this.props
     const target = e.target as any
@@ -78,7 +84,11 @@ export class AlertItem extends React.Component<AlertProps, AlertState> {
         <label onDoubleClick={this.handleDoubleClick}>
           {alert.search_terms}
         </label>
-
+        <select value={alert.frequency} onChange={this.handleFreqChange}>
+          <option value="2">Every 2 mins</option>
+          <option value="10">Every 10 mins</option>
+          <option value="30">Every 30 mins</option>
+        </select>
         <button
           className={style.destroy}
           onClick={this.handleClickDeleteButton}

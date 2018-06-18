@@ -39,7 +39,6 @@ export class AlertList extends React.Component<AlertListProps, AlertListState> {
     const {alerts, ...actions} = this.props
     return (
       <section className={style.main}>
-        {this.renderToggleAll()}
         <ul className={style.normal}>
           {alerts.map(alert => (
             <AlertItem key={alert.id} alert={alert} {...actions} />

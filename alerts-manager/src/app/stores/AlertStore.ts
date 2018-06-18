@@ -46,21 +46,6 @@ export class AlertStore {
     this.alerts = this.alerts.filter(alert => alert.id !== id)
     await this.alertsApi.alertsDelete(id)
   }
-
-  // @action
-  // enableAll = (): void => {
-  //   this.alerts = this.alerts.map(alert => ({...alert, enabled: true}))
-  // }
-
-  // @action
-  // disableAll = (): void => {
-  //   this.alerts = this.alerts.map(alert => ({...alert, enabled: false}))
-  // }
-
-  // @action
-  // clearDisabled = (): void => {
-  //   this.alerts = this.alerts.filter(alert => !alert.enabled)
-  // }
 }
 
 export default AlertStore
