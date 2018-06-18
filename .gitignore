@@ -39,7 +39,7 @@ __pycache__/
 .Python
 build/
 develop-eggs/
-dist/
+#   dist/     I need the dist folder from the node project
 downloads/
 eggs/
 .eggs/
@@ -105,7 +105,7 @@ celerybeat-schedule.*
 *.sage.py
 
 # Environments
-.env
+#.env      keep it for demostration 
 .venv
 env/
 venv/
