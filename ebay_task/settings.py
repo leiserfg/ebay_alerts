@@ -125,8 +125,8 @@ DEFAULT_DOMAIN = env('DEFAULT_DOMAIN', default='http://localhost:8000/')
 STATIC_URL = '/static/'
 
 HUEY = {
-    'name': 'my-app',
-    'url': env('REDIS_URL', default='localhost:6379'),
+    'name': 'ebay-alerts',
+    'url': env('REDIS_URL'),
     'always_eager': False
 }
 EMAIL_CONFIG = env.email_url()
@@ -134,3 +134,4 @@ locals().update(EMAIL_CONFIG)
 
 EBAY_ID = env('EBAY_ID')
 EBAY_DOMAIN = env('EBAY_DOMAIN', default='svcs.sandbox.ebay.com')
+MAIL_SENDER = env('MAIL_SENDER')

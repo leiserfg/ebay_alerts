@@ -1,10 +1,11 @@
+from django.conf import settings
 from django.template import loader
 
 from .models import Alert, Customer
 from .tasks.send_mail_async import send_mail_async
 from .utils import absolute_reverse
 
-mail_sender = 'sender@mail.com'    # TODO
+mail_sender = settings.MAIL_SENDER    # TODO
 
 
 def _subscribe_action(alert: Alert):

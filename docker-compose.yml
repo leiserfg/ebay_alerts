@@ -41,5 +41,9 @@ services:
       - redis
     links:
       - redis
+
   redis:
     image: redis:alpine
+
+  nginx:
+    image: nginx:alpine
