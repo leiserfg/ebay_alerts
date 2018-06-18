@@ -38,10 +38,9 @@ def absolute_reverse(viewname, args=None, kwargs=None, request=None, format=None
     return urljoin(DEFAULT_DOMAIN, url)
 
 
-def absolute_url(url):
-    """
-    Used in emails when you have not a request
-    """
+def absolute_url(url, request=None):
+    if request:
+        return request.build_absolute_uri(url)
     return urljoin(DEFAULT_DOMAIN, url)
 
 

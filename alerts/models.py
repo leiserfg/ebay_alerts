@@ -8,15 +8,18 @@ NORMAL = 10
 HIGH = 30
 
 FREQUENCY_CHOICES = (
-    (LOW, 'For every 2 minutes'),
-    (NORMAL, 'For every 10 minutes'),
-    (HIGH, 'For every 30 minutes'),
+    (LOW, 'Every 2 minutes'),
+    (NORMAL, 'Every 10 minutes'),
+    (HIGH, 'Every 30 minutes'),
 )
 
 
 class ModelWithUUID(models.Model):
-    # ids as uuid  'cause they will be exposed
-    id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
+    # Using uuid1 to ensure temporal order
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid1,
+        editable=False)
 
     class Meta:
         abstract = True
@@ -55,9 +58,10 @@ class Alert(ModelWithUUID):
 
     @staticmethod
     def need_for_notification(when=None):
-        next_min = _datetime_to_mins(when) - 1
-        Q = models.Q
+        # Using the last minute, thats way the customer
+        # donesn't needs to wait a complete period
+        last_min = _datetime_to_mins(when) - 1
         F = models.F
-        to_notify = (next_min - F('updated_minute')) % F('frequency')
+        to_notify = (last_min - F('updated_minute')) % F('frequency')
         return Alert.objects.filter(enabled=True).annotate(
             to_notify=to_notify).filter(to_notify=0)

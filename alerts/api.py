@@ -1,4 +1,5 @@
 from django.db import transaction
+from django.http import HttpResponseRedirect
 from django.utils.decorators import method_decorator
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
@@ -16,7 +17,9 @@ from .utils import register_viewset
 
 router = SimpleRouter()
 
-owner_param = openapi.Parameter('owner', in_=openapi.IN_QUERY, description='Owner of the alert',
+owner_param = openapi.Parameter('owner',
+                                in_=openapi.IN_QUERY,
+                                description='Owner of the alert',
                                 type=openapi.TYPE_STRING)
 
 
@@ -41,20 +44,32 @@ class AlertView(ModelViewSet):
             return CreateAlertSerializer
         return AlertSerializer
 
-    @swagger_auto_schema(responses={204: 'Unsuscribed', 404: 'Does not exist'})
-    @action(methods=['get'], detail=True)
+    @swagger_auto_schema(responses={
+        status.HTTP_202_ACCEPTED: ('This really never happens but the swagger '
+                                   'generator needs a successful response'),
+        status.HTTP_302_FOUND: 'Unsuscribed and redirect',
+        status.HTTP_404_NOT_FOUND: 'Does not exist'
+    })
+    @action(methods=['get'], detail=True, serializer_class=None)
     def unsuscribe(self, request, pk=None):
         alert = self.get_object()
         alert.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return HttpResponseRedirect(redirect_to='/customer/{}'
+                                    .format(alert.owner.id))
 
+    @swagger_auto_schema(responses={
+        status.HTTP_202_ACCEPTED: ('This really never happens but the swagger '
+                                   'generator needs a successful response'),
+        status.HTTP_302_FOUND: 'Suscribed and redirect',
+        status.HTTP_404_NOT_FOUND: 'Does not exist'
+    })
     @action(methods=['get'], detail=True)
     def suscribe(self, request, pk=None):
         alert: Alert = self.get_object()
         alert.enabled = True
         alert.save()
-        serializer = AlertSerializer(alert)
-        return Response(serializer.data)
+        return HttpResponseRedirect(redirect_to='/customer/{}'
+                                    .format(alert.owner.id))
 
 
 @register_viewset(router, 'customers')
