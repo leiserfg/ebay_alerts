@@ -1,4 +1,4 @@
-import {observable, action} from 'mobx'
+import {observable, action, runInAction} from 'mobx'
 import {AlertModel} from 'app/models'
 import {AlertsApi, CreateAlert, CustomersApi} from '../client'
 
@@ -6,7 +6,7 @@ export class AlertStore {
   private alertsApi = new AlertsApi()
   private customersApi = new CustomersApi()
 
-  @observable public alerts: Array<AlertModel>
+  @observable public alerts: Array<AlertModel> = []
   @observable public owner_id: string = null
   @observable public owner_email: string = null
 
@@ -27,20 +27,22 @@ export class AlertStore {
   @action
   async fetchAlerts() {
     const alerts = await this.alertsApi.alertsList(this.owner_id)
-    this.alerts = alerts.map(a => a as AlertModel)
+    runInAction(() => (this.alerts = alerts as AlertModel[]))
   }
 
   @action
-  async editAlert(id: string, data: AlertModel) {
+  editAlert = async (id: string, data: AlertModel) => {
     const changedIndex = this.alerts.findIndex(it => it.id == id)
     if (changedIndex !== -1) {
       const updated = await this.alertsApi.alertsPartialUpdate(id, data)
-      this.alerts[changedIndex] = updated as AlertModel
+      runInAction(() => {
+        this.alerts[changedIndex] = updated as AlertModel
+      })
     }
   }
 
   @action
-  async deleteAlert(id: string) {
+  deleteAlert = async (id: string) => {
     this.alerts = this.alerts.filter(alert => alert.id !== id)
     await this.alertsApi.alertsDelete(id)
   }
