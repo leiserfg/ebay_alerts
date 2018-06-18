@@ -189,7 +189,7 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
+#  .env   keep it for demostration 
 
 
 # End of https://www.gitignore.io/api/node
