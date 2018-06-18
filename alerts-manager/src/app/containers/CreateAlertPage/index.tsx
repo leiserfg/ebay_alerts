@@ -1,6 +1,7 @@
 import * as React from 'react'
 import * as style from './style.css'
 import {AlertsApi} from '../../client'
+
 const api = new AlertsApi()
 
 export interface CreateAlertPageState {
@@ -25,14 +26,20 @@ export class CreateAlertPage extends React.Component<
 
   handleSubmit = event => {
     event.preventDefault()
-    if (this.state.email.match(/.*@.*/)) {
-      api
-        .alertsCreate(this.state)
-        .then(() => alert('Check your email'))
-        .catch(e => alert(e.message))
-    } else {
-      alert('This is an invalid email')
+
+    if (!this.state.email.match(/.*@.*/)) {
+      alert('The email is invalid')
+      return
     }
+    if (!this.state.search_terms.trim()) {
+      alert('The search_terms cannot be empty')
+      return
+    }
+
+    api
+      .alertsCreate(this.state)
+      .then(() => alert('Check your email for confirmation'))
+      .catch(e => alert(e.message))
   }
 
   handleInputChange = event => {
@@ -49,32 +56,37 @@ export class CreateAlertPage extends React.Component<
       <div className={style.normal}>
         <h1>Create Alert</h1>
         <form onSubmit={this.handleSubmit}>
-          <label>Email: </label>
-          <br />
-          <input
-            name="email"
-            value={this.state.email}
-            onChange={this.handleInputChange}
-          />
-          <label>Search Term: </label>
-          <input
-            name="search_terms"
-            value={this.state.search_terms}
-            onChange={this.handleInputChange}
-          />
-          <label>Frequency: </label>
-          <br />
-          <select
-            value={this.state.frequency}
-            name="frequency"
-            onChange={this.handleInputChange}
-          >
-            <option value="2">For every 2 mins</option>
-            <option value="10">For every 10 mins</option>
-            <option value="30">For every 30 mins</option>
-          </select>
+          <label>
+            Email:{' '}
+            <input
+              name="email"
+              value={this.state.email}
+              onChange={this.handleInputChange}
+            />
+          </label>
 
-          <input type="submit" value="Create" />
+          <label>
+            Search Term:{' '}
+            <input
+              name="search_terms"
+              value={this.state.search_terms}
+              onChange={this.handleInputChange}
+            />{' '}
+          </label>
+
+          <label>
+            Frequency:
+            <select
+              value={this.state.frequency}
+              name="frequency"
+              onChange={this.handleInputChange}
+            >
+              <option value="2">For every 2 mins</option>
+              <option value="10">For every 10 mins</option>
+              <option value="30">For every 30 mins</option>
+            </select>
+          </label>
+          <button> Create </button>
         </form>
       </div>
     )

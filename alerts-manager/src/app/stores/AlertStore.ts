@@ -11,8 +11,9 @@ export class AlertStore {
   @observable public owner_email: string = null
 
   @action
-  async addAlert(item: CreateAlert) {
-    await this.alertsApi.alertsCreate(item)
+  addAlert = async (item: CreateAlert) => {
+    let newAlert = {email: this.owner_email, ...item}
+    await this.alertsApi.alertsCreate(newAlert)
     await this.fetchAlerts()
   }
 

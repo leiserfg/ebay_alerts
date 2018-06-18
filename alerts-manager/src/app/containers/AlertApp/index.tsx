@@ -4,7 +4,7 @@ import {inject, observer} from 'mobx-react'
 import {RouteComponentProps} from 'react-router'
 import {AlertStore} from 'app/stores'
 import {STORE_ROUTER, STORE_ALERT} from 'app/constants'
-import {AlertList} from 'app/components/'
+import {AlertList, Header} from 'app/components/'
 
 export interface AlertAppProps extends RouteComponentProps<any> {}
 
@@ -30,6 +30,7 @@ export class AlertApp extends React.Component<AlertAppProps, AlertAppState> {
 
     return (
       <div className={style.normal}>
+        <Header addAlert={this.alertStore.addAlert} />
         <AlertList
           deleteAlert={this.alertStore.deleteAlert}
           editAlert={this.alertStore.editAlert}
