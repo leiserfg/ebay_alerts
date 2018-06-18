@@ -20,7 +20,7 @@ export class AlertApp extends React.Component<AlertAppProps, AlertAppState> {
   }
 
   componentWillMount() {
-    const id = '90c1a50c-7287-11e8-a91c-0242ac120005' // this.props.match.params.id
+    const id = this.props.match.params.id
     this.alertStore.fetchCustomer(id)
   }
 
