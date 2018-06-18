@@ -16,6 +16,9 @@ fake_response = Path(__file__).parent / 'fake_ebay.json'
 
 
 def register_viewset(router: BaseRouter, name: str, base_name: str = ''):
+    """
+    Adds a biewset to a router 
+    """
     def _regist(viewset: ViewSet):
         router.register(name, viewset, base_name=base_name or None)
         return viewset
@@ -24,6 +27,9 @@ def register_viewset(router: BaseRouter, name: str, base_name: str = ''):
 
 
 def absolute_reverse(viewname, args=None, kwargs=None, request=None, format=None, **extra):
+    """
+    Used in emails when you have not a request
+    """
     url = reverse(viewname, args=args, kwargs=kwargs,
                   request=request, format=format, **extra)
     if request:
@@ -32,7 +38,15 @@ def absolute_reverse(viewname, args=None, kwargs=None, request=None, format=None
     return urljoin(DEFAULT_DOMAIN, url)
 
 
+def absolute_url(url):
+    """
+    Used in emails when you have not a request
+    """
+    return urljoin(DEFAULT_DOMAIN, url)
+
+
 def search_on_ebay(search_term, count=20, order_by='PricePlusShippingLowest'):
+    #  For avoiding ebay slow responses and proxis on development
     if EBAY_DOMAIN == 'fake':
         return load(fake_response.open())
 

@@ -24,6 +24,9 @@ owner_param = openapi.Parameter('owner', in_=openapi.IN_QUERY, description='Owne
 @register_viewset(router, 'alerts', 'alert')
 class AlertView(ModelViewSet):
     def get_queryset(self):
+        """
+        Hide information (as email) from other peoples for avoid spam
+        """
         queryset = Alert.objects.all()
         if self.action != 'list':
             return queryset

@@ -3,9 +3,9 @@ from django.template import loader
 
 from .models import Alert, Customer
 from .tasks.send_mail_async import send_mail_async
-from .utils import absolute_reverse
+from .utils import absolute_reverse, absolute_url
 
-mail_sender = settings.MAIL_SENDER    # TODO
+mail_sender = settings.MAIL_SENDER
 
 
 def _subscribe_action(alert: Alert):
@@ -17,7 +17,7 @@ def _unsuscribe_action(alert: Alert):
 
 
 def _manager_action(customer: Customer):
-    return absolute_reverse('customer-detail', args=[customer.id])
+    return absolute_url('/customer/{}'.format(customer.id))
 
 
 def subscription(alert: Alert):
