@@ -1,6 +1,7 @@
 import uuid
 from datetime import datetime
 
+from django.core.validators import RegexValidator
 from django.db import models
 
 LOW = 2
@@ -41,7 +42,15 @@ def _datetime_to_mins(when=None):
 class Alert(ModelWithUUID):
     owner = models.ForeignKey(
         Customer, on_delete=models.CASCADE, related_name='alerts')
-    search_terms = models.CharField(max_length=50, blank=False, null=False)
+    search_terms = models.CharField(max_length=50,
+                                    blank=False,
+                                    null=False,
+                                    validators=[
+                                        RegexValidator(
+                                            regex='\S',
+                                            message='Search can\'t be empty'
+
+                                        )])
     frequency = models.IntegerField(choices=FREQUENCY_CHOICES, default=NORMAL)
     enabled = models.BooleanField(default=False)
     updated_minute = models.IntegerField()
