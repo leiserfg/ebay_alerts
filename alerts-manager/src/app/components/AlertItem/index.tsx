@@ -74,13 +74,15 @@ export class AlertItem extends React.Component<AlertProps, AlertState> {
       />
     ) : (
       <div className={style.view}>
-        <input
-          className={style.toggle}
-          type="checkbox"
-          checked={alert.enabled}
-          onChange={this.handleToggleCheckbox}
-        />
-
+        <div className={style.toggle}>
+          <input
+            id={'toggle-for-' + alert.id}
+            type="checkbox"
+            checked={alert.enabled}
+            onChange={this.handleToggleCheckbox}
+          />
+          <label htmlFor={'toggle-for-' + alert.id} />
+        </div>
         <label onDoubleClick={this.handleDoubleClick}>
           {alert.search_terms}
         </label>
@@ -88,11 +90,11 @@ export class AlertItem extends React.Component<AlertProps, AlertState> {
           <option value="2">Every 2 mins</option>
           <option value="10">Every 10 mins</option>
           <option value="30">Every 30 mins</option>
-        </select>
+            </select>
         <button
           className={style.destroy}
           onClick={this.handleClickDeleteButton}
-        />
+            />
       </div>
     )
 

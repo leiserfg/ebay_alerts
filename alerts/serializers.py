@@ -20,6 +20,7 @@ class CreateAlertSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Alert
+        # id field is hidden to avoid someone spamming a customer
         fields = ('email', 'search_terms', 'frequency', 'frequency_name')
 
     def create(self, validated_data):

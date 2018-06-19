@@ -1,6 +1,8 @@
 import * as React from 'react'
 import {AlertTextInput} from 'app/components/AlertTextInput'
 import AlertModel from 'app/models/AlertModel'
+import * as style from './style.css'
+
 
 export interface HeaderProps {
   addAlert: (alert: Partial<AlertModel>) => any
@@ -30,7 +32,7 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
 
   render() {
     return (
-      <header>
+	    <header className={style.header}>
         <h1>Ebay Alerts</h1>
         <AlertTextInput
           newAlert

@@ -2,7 +2,6 @@ import * as React from 'react'
 import {AlertItem, AlertActions} from 'app/components/AlertItem'
 import AlertModel from 'app/models/AlertModel'
 import * as style from './style.css'
-
 import {observer} from 'mobx-react'
 export interface AlertListProps extends AlertActions {
   alerts: AlertModel[]
@@ -38,8 +37,8 @@ export class AlertList extends React.Component<AlertListProps, AlertListState> {
   render() {
     const {alerts, ...actions} = this.props
     return (
-      <section className={style.main}>
-        <ul className={style.normal}>
+	    <section className={style.main}>
+        <ul>
           {alerts.map(alert => (
             <AlertItem key={alert.id} alert={alert} {...actions} />
           ))}

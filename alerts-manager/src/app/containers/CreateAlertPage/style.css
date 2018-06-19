@@ -35,10 +35,6 @@ body {
   font-weight: 300;
 }
 
-button,
-input[type='checkbox'] {
-  outline: none;
-}
 
 .normal {
   background: #fff;
@@ -77,4 +73,42 @@ input[type='checkbox'] {
   -moz-text-rendering: optimizeLegibility;
   -ms-text-rendering: optimizeLegibility;
   text-rendering: optimizeLegibility;
+}
+
+
+.normal label{
+    display: flex;
+    justify-content: space-between;
+    margin: 1em 0;
+    width: 100%;
+    height: 2em;
+}
+.normal form{
+    padding: 1em;
+}
+.normal input, .normal select{
+    height: 100%;
+}
+.normal input{
+    flex: 1;
+    max-width: 60%; 
+}
+
+.normal button{
+    background-color: transparent;
+    border: solid silver 1px;
+    padding: 1em;
+    left: 50%;
+    transform: translateX(-50%);
+    position: relative;
+    
+}
+
+@supports (-webkit-appearance:none) {
+.normal select{
+    background-color:transparent;
+    border-bottom-color: #ccc;
+    
+}
+
 }

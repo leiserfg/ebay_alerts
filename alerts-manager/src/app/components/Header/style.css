@@ -1,0 +1,12 @@
+.header{
+    display: flex;
+}
+
+
+@supports (-webkit-appearance:none) {
+.header select{
+     border-bottom-color: #ccc;
+   background-color:transparent;
+}
+
+}
