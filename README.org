@@ -1,8 +1,22 @@
 #+TITLE: Ebay Notifications
 
-* Backend
-** Django as core framework
-** Django Rest Framework for rest implementation
-** drf-yasg for api documentation
-** Huey as task queue and scheduler
-** Django environ for configuration
+
+* Tecnologies
+** Backend
+- django as core web framework (ORM, mail client, templates...)
+- django rest framework for rest implementation
+- drf-yasg for api documentation 
+- huey as task queue and scheduler
+- django-environ for configuration loading
+- ebay-sdk as ebay client
+** Frontend
+- React as view library 
+- mobx as state manager
+- portable-fetch as http client
+
+* Considerations
+- The server is configured to run on port 8000
+- The frontend is precompiled for easier setup but you can rebuild it if you want
+- The api is browseable on /api/swagger/  or /api/redoc/
+-  /ebay_task/.env is a configuration file with some vars (and comments) that you can tweak (email backend, db ...)
+- Even though it is a system without auth you shouldn't see the emails of other customers, so i use UUID as primary key for avoid iterations over the api.
