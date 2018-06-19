@@ -18,5 +18,6 @@
 - The server is configured to run on port 8000
 - The frontend is precompiled for easier setup but you can rebuild it if you want
 - The api is browseable on /api/swagger/  or /api/redoc/
--  /ebay_task/.env is a configuration file with some vars (and comments) that you can tweak (email backend, db ...)
+- /ebay_task/.env is a configuration file with some vars (and comments) that you can tweak (email backend, db ...)
 - Even though it is a system without auth you shouldn't see the emails of other customers, so i use UUID as primary key for avoid iterations over the api.
+- In the emails is style are embedded 'cause the email readers don't like to read css from outside.
