@@ -1,0 +1,8 @@
+#+TITLE: Ebay Notifications
+
+* Backend
+** Django as core framework
+** Django Rest Framework for rest implementation
+** drf-yasg for api documentation
+** Huey as task queue and scheduler
+** Django environ for configuration
