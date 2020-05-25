@@ -51,7 +51,7 @@
     "mobx-react-router": "^4.0.1",
     "portable-fetch": "^3.0.0",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0",
+    "react-dom": "^16.4.2",
     "react-router": "^4.2.0"
   }
 }
